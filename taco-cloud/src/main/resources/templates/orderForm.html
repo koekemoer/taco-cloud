@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Taco CLoud</title>
+        <link rel="stylesheet" th:href="@{/styles.css}"/>
+    </head>
+
+    <body>
+        <!-- 
+        Notice that the <form> tag here is different from the <form> tag used in listing 2.5 in that it also specifies a form action. 
+        Without an action specified, the form would submit an HTTP POST request back to the same URL that presented the form.
+        But here, you specify that the form should be POSTed to /orders (using Thymeleaf’s
+        @{…} operator for a context-relative path).
+         -->
+        <form method="POST" th:action="@{/orders}" th:object="${order}" id="orderForm">
+            <h1>Order Your Creations!</h1>
+
+            <img th:src="@{/images/taco1.png}">
+
+            <h3>Your Tacos in Order:</h3>
+            <a th:href="@{/design}" id="another">Design Another!</a>
+            <ul>
+                <li th:each="taco : ${order.tacos}">
+                    <span th:text="${taco.name}">TACO NAME</span>
+                </li>
+            </ul>
+
+            <h3>Deliver To:</h3>
+
+            <label for="deliveryName">Name: </label>
+            <input type="text" th:field="*{deliveryName}"/>
+            <br/>
+
+            <label for="deliveryStreet">Street Address: </label>
+            <input type="text" th:field="*{deliveryStreet}"/>
+            <br/>
+
+            <!-- city -->
+            <label for="deliveryCity">City: </label>
+            <input type="text" th:field="*{deliveryCity}"/>
+            <br/>
+
+            <!-- state -->
+            <label for="deliveryState">State: </label>
+            <input type="text" th:field="*{deliveryState}"/>
+            <br/>
+
+            <!-- zip -->
+            <label for="deliveryZip">Zip: </label>
+            <input type="text" th:field="*{deliveryZip}"/>
+            <br/>
+
+            <h3>Payment Method:</h3>
+            <!-- ccNumber -->
+            <label for="ccNumber">Credit Card Number: </label>
+            <input type="text" th:field="*{ccNumber}"/>
+            <span class="validationError" th:if="${#fields.hasErrors('ccNumber')}" th:errors="*{ccNumber}">CC Number Error</span>
+            <br/>
+
+            <!-- cc Expiry -->
+            <label for="ccExpiration">Expiry Date: </label>
+            <input type="text" th:field="*{ccExpiration}"/>
+            <span class="validationError" th:if="${#fields.hasErrors('ccExpiration')}" th:errors="*{ccExpiration}">CC Expiry Error</span>
+            <br/>
+
+            <!-- cc CVV -->
+            <label for="ccCVV">CVV Number: </label>
+            <input type="text" th:field="*{ccCVV}"/>
+            <span class="validationError" th:if="${#fields.hasErrors('ccCVV')}" th:errors="*{ccCVV}">CC CVV Error</span>
+            <br/>
+
+            <!-- submit -->
+            <input type="submit" value="Submit Order"/>
+
+        </form>
+    </body>

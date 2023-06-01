@@ -1,0 +1,14 @@
+spring:
+    datasource:
+        generate-unique-name: false
+        name: tacocloud
+    h2:
+        console:
+            enabled: true
+    data:
+        rest:
+            base-path: /data-api
+logging:
+  level:
+    root: INFO
+    com.lk.tacocloud: INFO
